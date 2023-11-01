@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <title>London Cafes</title>
+    <script type="module" src="static/js/index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key={{ google_api }}" defer></script>
+  </head>
+  <body>
+
+  <p><img src="static/images/caffetteria-wifi.png" class="logo"></p>
+  <h1>️Coffee & Wifi</h1>
+  <p>Want to work in a cafe but need power and wi-fi? In case you want to use our API service click on <a href="https://documenter.getpostman.com/view/30405594/2s9YR56EtF">instructions.</a></p>
+  <h2>All Cafes</h2>
+
+        <div class="container">
+            <div class="left-column">
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th>Name</th>
+                      <th></th>
+                      <th>Location</th>
+                      <th></th>
+                      <th colspan="5">Utilities & More</th>
+                    </tr>
+                  </thead>
+
+                  {% for cafe in cafes_list %}
+                    <tbody>  <!-- i vari data sotto verranno utilizzati dal javascript per creare i markers sulla mappa -->
+                      <tr class="table-row" data-url="{{ cafe[0] }}" data-marker-index="{{ cafe[1] }}" data-marker-name="{{ cafe[5] }}" data-lat="{{ cafe[2] }}" data-lng="{{ cafe[3] }}">
+                        {% for item in cafe[4:] %} <!-- popolo la tabella -->
+                          <th scope="row"></th>
+                          {% if "http" in item %} <!-- per riconoscere la foto che è un link -->
+                            <td><img src="{{ item }}" alt="foto" class="resized-img"></td>
+                          {% else %}
+                            <td>{{ item }}</td>
+                          {% endif %}
+                        {% endfor %}
+                      </tr>
+                    </tbody>
+                  {% endfor %}
+
+              </table>
+            </div>
+
+            <div class="right-column">
+                <div id="map"></div>
+            </div>
+    </div>
+
+
+  </body>
+</html>
+
+
+
+
